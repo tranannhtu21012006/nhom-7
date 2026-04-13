@@ -1,74 +1,25 @@
-<h3>Thêm bài viết</h3>
+<h2>Thêm danh mục</h2>
 
-<form method="POST"
-action="index.php?action=storeArticle"
-enctype="multipart/form-data">
+<form method="POST" action="index.php?action=storeCategory">
 
-Tiêu đề
+    <div class="mb-3">
+        <label>Tên danh mục</label>
 
-<input type="text"
-name="title"
-class="form-control"
-required>
+        <input
+            type="text"
+            name="category_name"
+            class="form-control"
+            required
+        >
+    </div>
 
-<br>
+    <button class="btn btn-success">
+        Thêm danh mục
+    </button>
 
-Nội dung
-
-<textarea name="content"
-class="form-control"
-rows="5"
-required></textarea>
-
-<br>
-
-Danh mục
-
-<select name="category_id"
-class="form-control"
-required>
-
-<?php foreach ($categories as $cat): ?>
-
-<option value="<?= $cat['category_id'] ?>">
-
-<?= $cat['category_name'] ?>
-
-</option>
-
-<?php endforeach; ?>
-
-</select>
-
-<br>
-
-Ảnh
-
-<input type="file"
-name="image"
-class="form-control">
-
-<br>
-
-Trạng thái
-
-<select name="status"
-class="form-control">
-
-<option value="1">
-Hiển thị
-</option>
-
-<option value="0">
-Ẩn
-</option>
-
-</select>
-
-<br>
-
-<button class="btn btn-success">
-Thêm bài
-</button>
+    <a href="index.php?action=listCategory"
+       class="btn btn-secondary">
+       Quay lại
+    </a>
 
 </form>

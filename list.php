@@ -1,126 +1,54 @@
-<?php require_once __DIR__ ."/../../helpers/time_helper.php"; ?>
-<div class="main-layout">
+<h2>Quản lý danh mục</h2>
 
-    <!-- quảng cáo trái -->
-    <div class="ads-left">
+<a href="index.php?action=createCategory" class="btn btn-primary mb-3">
+    Thêm danh mục
+</a>
 
-    <a href="#">
-        <img src="public/images/ads1.jpg" class="ads-img">
-    </a>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Tên danh mục</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+    </tr>
 
-    <a href="#">
-        <img src="public/images/ads3.jpg" class="ads-img">
-    </a>
+    <?php foreach ($categories as $row): ?>
 
-</div>
+    <tr>
+        <td><?php echo $row["category_id"]; ?></td>
 
-    <!-- nội dung chính -->
-    <div class="content">
+        <td><?php echo $row["category_name"]; ?></td>
 
-        <div class="news-container">
+        <td>
 
-            <div class="row">
+<?php
+if ($row["status"] == 1) {
+    echo "<span class='badge bg-success'>Hiển thị</span>";
+} else {
+    echo "<span class='badge bg-secondary'>Ẩn</span>";
+}
+?>
 
-                <?php foreach($articles as $row): ?>
+</td>
 
-                <div class="col-md-4 mb-4">
+        <td>
 
-                    <div class="card h-100">
+            <a href="index.php?action=toggleCategoryStatus&id=<?php echo $row['category_id']; ?>"
+class="btn btn-sm btn-warning">
 
-                        <img
-                        src="public/images/<?= $row['image'] ?>"
-                        class="card-img-top"
-                        >
-
-                        <div class="card-body">
-
-                            <h5 class="card-title">
-                                <?= $row['title'] ?>
-                            </h5>
-
-                            <p class="text-muted">
-                                Đăng:
-                                <?= date("d/m/Y", strtotime($row["created_at"])) ?>
-                            </p>
-
-                            <div class="button-group">
-
-                              <a
-                              href="index.php?action=article&id=<?= $row['article_id'] ?>"
-                              class="btn btn-primary"
-                              >
-                                 Xem chi tiết
-                              </a>
-
-                              <a
-                              href="index.php?action=addFavorite&id=<?= $row['article_id'] ?>"
-                              class="btn btn-warning"
-                              >
-                                 ★ Lưu bài
-                              </a>
-
-                              </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <?php endforeach; ?>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- quảng cáo phải -->
-    <div class="ads-right">
-
-    <a href="#">
-        <img 
-        src="public/images/ads2.jpg"
-        alt="Quảng cáo"
-        class="ads-img"
-        >
-    </a>
-
-    </div>
-
-</div>
-
-
-<nav>
-
-<ul class="pagination justify-content-center">
-
-<?php for($i = 1; $i <= $total_pages; $i++): ?>
-
-<li class="page-item
-<?= ($i == $page) ? 'active' : '' ?>">
-
-<a
-class="page-link"
-href="
-index.php
-?action=<?= $_GET['action'] ?? 'home' ?>
-<?php if(isset($_GET['id'])): ?>
-&id=<?= $_GET['id'] ?>
-<?php endif; ?>
-&page=<?= $i ?>
-">
-
-<?= $i ?>
+Bật / Tắt
 
 </a>
 
-</li>
+            <a href="index.php?action=deleteCategory&id=<?php echo $row["category_id"]; ?>"
+               class="btn btn-danger"
+               onclick="return confirm('Bạn có chắc muốn xóa?')">
+               Xóa
+            </a>
 
-<?php endfor; ?>
+        </td>
+    </tr>
 
-</ul>
+    <?php endforeach; ?>
 
-</nav>
-
-</div>
+</table>
